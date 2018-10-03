@@ -1,0 +1,12 @@
+---
+
+# 31.10. Common Address Redundancy Protocol (CARP)
+# https://www.freebsd.org/doc/handbook/carp.html
+# Can be configured in *interfaces*
+
+# TODO
+# PF - Firewall Redundancy (CARP and pfsync)
+# https://www.openbsd.org/faq/pf/carp.html
+
+# EOF
+...

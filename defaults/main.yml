@@ -1,0 +1,31 @@
+---
+# defaults for freebsd_network
+
+fn_debug: false
+fn_backup_conf: no
+
+fn_wlans: []
+fn_create_args: []
+fn_interfaces: []
+fn_aliases: []
+
+fn_defaultrouter: ""
+fn_nameserver: ""
+fn_gateway_enable: false
+# To enable routing, set the sysctl(8) variable net.inet.ip.forwarding
+# to 1. To stop routing, reset this variable to 0. (31.2.2)
+
+fn_static_routes_list: ""
+fn_static_routes: []
+
+fn_cloned_interfaces: ""
+fn_bridges: []
+fn_laggs: []
+
+# Dynamic configuration by a cloud provider
+fn_defaultrouter_dynamic: false
+fn_ipv6_defaultrouter_dynamic: false
+fn_ipv6_activate_all_interfaces_dynamic: false
+
+# EOF
+...

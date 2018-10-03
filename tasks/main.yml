@@ -1,0 +1,21 @@
+---
+# tasks for freebsd_network
+
+- import_tasks: debug.yml
+  when: fn_debug
+  tags: fn_debug
+
+- import_tasks: interfaces.yml
+  tags: fn_interfaces
+
+- import_tasks: bridge.yml
+  tags: fn_bridge
+
+- import_tasks: lagg.yml
+  tags: fn_lagg
+
+- import_tasks: router.yml
+  tags: fn_router
+
+# EOF
+...

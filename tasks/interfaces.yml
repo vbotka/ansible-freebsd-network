@@ -1,0 +1,51 @@
+---
+
+# 11.5. Setting Up Network Interface Cards
+# https://www.freebsd.org/doc/handbook/config-network-setup.html
+# 31.3. Wireless Networking
+# https://www.freebsd.org/doc/handbook/network-wireless.html
+
+- name: "interfaces: Configure wlans in /etc/rc.conf"
+  lineinfile:
+    state: "{{ item.state|default('present') }}"
+    dest: "/etc/rc.conf"
+    regexp: "^wlans_{{ item.device }}"
+    line: "wlans_{{ item.device }}=\"{{ item.interface }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_wlans }}"
+  notify: restart netif
+
+- name: "interfaces: Configure create_args in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^create_args_{{ item.interface }}"
+    line: "create_args_{{ item.interface }}=\"{{ item.options }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_create_args }}"
+  notify: restart netif
+
+- name: "interfaces: Configure interfaces in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^ifconfig_{{ item.interface }}"
+    line: "ifconfig_{{ item.interface }}=\"{{ item.options }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_interfaces }}"
+  notify: restart netif
+
+# 11.6. Virtual Hosts
+# https://www.freebsd.org/doc/handbook/configtuning-virtual-hosts.html
+# 31.10. Common Address Redundancy Protocol (CARP)
+# https://www.freebsd.org/doc/handbook/carp.html
+
+- name: "interfaces: Configure interface aliases in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^ifconfig_{{ item.interface }}_{{ item.alias }}"
+    line: "ifconfig_{{ item.interface }}_{{ item.alias }}=\"{{ item.options }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_aliases }}"
+  notify: restart netif
+
+# EOF
+...

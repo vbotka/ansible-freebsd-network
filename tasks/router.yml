@@ -1,0 +1,101 @@
+---
+
+# 31.2. Gateways and Routes
+# https://www.freebsd.org/doc/handbook/network-routing.html
+
+- name: "router: Set defaultrouter {{ fn_defaultrouter }} in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^defaultrouter"
+    line: "defaultrouter=\"{{ fn_defaultrouter }}\""
+    backup: "{{ fn_backup_conf }}"
+  when:
+    - fn_defaultrouter != ""
+    - not fn_defaultrouter_dynamic
+  notify: restart routing
+
+- name: "router: Remove defaultrouter from /etc/rc.conf"
+  lineinfile:
+    state: absent
+    dest: "/etc/rc.conf"
+    regexp: "^defaultrouter"
+    backup: "{{ fn_backup_conf }}"
+  when:
+    - fn_defaultrouter == ""
+    - not fn_defaultrouter_dynamic
+  notify: restart routing
+
+- name: "router: Set nameserver {{ fn_nameserver }} in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^nameserver"
+    line: "nameserver=\"{{ fn_nameserver }}\""
+    backup: "{{ fn_backup_conf }}"
+  when: fn_nameserver != ""
+  notify: restart netif
+
+- name: "router: Remove nameserver from /etc/rc.conf"
+  lineinfile:
+    state: absent
+    dest: "/etc/rc.conf"
+    regexp: "^nameserver"
+    backup: "{{ fn_backup_conf }}"
+  when: fn_nameserver == ""
+  notify: restart netif
+
+- name: "router: Enable gateway in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^gateway_enable"
+    line: "gateway_enable=\"YES\""
+    backup: "{{ fn_backup_conf }}"
+  when: fn_gateway_enable
+  notify: restart routing
+  # To enable routing, set the sysctl variable net.inet.ip.forwarding to 1
+  # To disable routing, reset variable net.inet.ip.forwarding to 0
+
+- name: "router: Remove gateway from /etc/rc.conf"
+  lineinfile:
+    state: absent
+    dest: "/etc/rc.conf"
+    regexp: "^gateway_enable"
+    backup: "{{ fn_backup_conf }}"
+  when: not fn_gateway_enable
+  notify: restart routing
+
+- name: "router: Configure static routes in /etc/rc.conf"
+  lineinfile:
+    state: "{{ item.state }}"
+    dest: "/etc/rc.conf"
+    regexp: "^route_{{ item.name }}"
+    line: "route_{{ item.name }}=\"{{ item.route }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_static_routes }}"
+  notify: restart routing
+
+- name: "router: Create list of static routes"
+  set_fact:
+    fn_static_routes_list: "{{ fn_static_routes_list }} + ' ' + {{ item.name }}"
+  loop: "{{ fn_static_routes }}"
+  when: item.state == "present"
+
+- name: "router: Configure list of static routes in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^static_routes"
+    line: "static_routes=\"{{ fn_static_routes_list }}\""
+    backup: "{{ fn_backup_conf }}"
+  when: fn_static_routes_list != ""
+  notify: restart routing
+
+- name: "router: Remove list of static routes from /etc/rc.conf"
+  lineinfile:
+    state: absent
+    dest: "/etc/rc.conf"
+    regexp: "^static_routes"
+    backup: "{{ fn_backup_conf }}"
+  when: fn_static_routes_list == ""
+  notify: restart routing
+
+# EOF
+...

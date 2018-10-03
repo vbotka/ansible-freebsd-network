@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: freebsd_network
+  author: Vladimir Botka
+  description: FreeBSD. Configure network.
+  company: https://botka.link
+  license: BSD
+  github_branch: master
+  min_ansible_version: 2.5
+  platforms:
+    - name: FreeBSD
+      versions:
+        - 10.4
+        - 11.2
+  galaxy_tags:
+    - freebsd
+    - network
+    - routing
+    - wireless
+    - bridge
+    - lacp
+    - carp
+    - ipv6
+dependencies: []

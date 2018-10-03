@@ -1,0 +1,10 @@
+---
+
+# 31.3. Wireless Networking
+# http://www.freebsd.org/doc/handbook/network-wireless.html
+
+# wpa_supplicant, hostapd
+# https://galaxy.ansible.com/vbotka/freebsd_postinstall
+
+# EOF
+...

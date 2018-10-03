@@ -1,0 +1,15 @@
+---
+# handlers for freebsd_network
+
+- name: restart netif
+  service:
+    name: netif
+    state: restarted
+
+- name: restart routing
+  service:
+    name: routing
+    state: restarted
+
+# EOF
+...
