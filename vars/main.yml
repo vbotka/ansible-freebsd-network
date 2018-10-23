@@ -1,5 +1,8 @@
 ---
 # vars for freebsd_network
 
+#fn_bridges:
+#  - { bridge: "bridge0", options: "addm fxp0 addm fxp1 up", state: present }
+
 # EOF
 ...

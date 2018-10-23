@@ -23,7 +23,7 @@
   lineinfile:
     dest: "/etc/rc.conf"
     regexp: "^cloned_interfaces"
-    line: "^cloned_interfaces=\"{{ fn_cloned_interfaces }}\""
+    line: "cloned_interfaces=\"{{ fn_cloned_interfaces }}\""
     backup: "{{ fn_backup_conf }}"
   when: fn_cloned_interfaces != ""
   notify: restart netif
