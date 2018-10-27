@@ -27,7 +27,7 @@
 - name: "interfaces: Configure interfaces in /etc/rc.conf"
   lineinfile:
     dest: "/etc/rc.conf"
-    regexp: "^ifconfig_{{ item.interface }}"
+    regexp: "^ifconfig_{{ item.interface }}="
     line: "ifconfig_{{ item.interface }}=\"{{ item.options }}\""
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_interfaces }}"
