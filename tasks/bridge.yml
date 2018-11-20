@@ -28,7 +28,7 @@
     regexp: "^cloned_interfaces"
     line: "cloned_interfaces=\"{{ fn_cloned_interfaces }}\""
     backup: "{{ fn_backup_conf }}"
-  when: fn_cloned_interfaces != ""
+  when: fn_cloned_interfaces|length > 0
   notify: netif cloneup
 
 - name: "bridge: Remove cloned_interfaces from /etc/rc.conf"
@@ -37,7 +37,7 @@
     dest: "/etc/rc.conf"
     regexp: "^cloned_interfaces"
     backup: "{{ fn_backup_conf }}"
-  when: fn_cloned_interfaces == ""
+  when: fn_cloned_interfaces|length == 0
   notify: restart netif
 
 # EOF

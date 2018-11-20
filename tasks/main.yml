@@ -3,7 +3,7 @@
 
 - import_tasks: debug.yml
   when: fn_debug
-  tags: fn_debug
+  tags: [fn_debug, always]
 
 - import_tasks: interfaces.yml
   tags: fn_interfaces

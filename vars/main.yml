@@ -1,22 +1,22 @@
 ---
 # vars for freebsd_network
 
-#fn_debug: true
-#fn_backup_conf: yes
+# fn_debug: true
+# fn_backup_conf: yes
 
-#fn_defaultrouter: "192.168.99.1"
-#fn_gateway_enable: true
+# fn_defaultrouter: "192.168.99.1"
+# fn_gateway_enable: true
 
-#fn_wlans:
+# fn_wlans:
 #  - { device: "iwn0", interface: "wlan0", state: present }
 
-#fn_interfaces:
+# fn_interfaces:
 #  - { interface: "wlan0", options: "country SK WPA SYNCDHCP" }
 #  - { interface: "em0", options: "DHCP" }
 
-#fn_cloned_interfaces: "lo1"
+# fn_cloned_interfaces: "lo1"
 
-#fn_bridges:
+# fn_bridges:
 #  - { bridge: "bridge0", options: "addm fxp0 addm fxp1 up", state: present }
 
 # EOF
