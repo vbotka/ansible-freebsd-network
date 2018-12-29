@@ -15,16 +15,17 @@
   loop: "{{ fn_wlans }}"
   notify: restart netif
 
-- name: "interfaces: Configure create_args in /etc/rc.conf"
+- name: "interfaces: Configure interfaces create_args in /etc/rc.conf"
   lineinfile:
     dest: "/etc/rc.conf"
     regexp: "^create_args_{{ item.interface }}"
-    line: "create_args_{{ item.interface }}=\"{{ item.options }}\""
+    line: "create_args_{{ item.interface }}=\"{{ item.create }}\""
     backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_create_args }}"
+  loop: "{{ fn_interfaces }}"
+  when: item.create is defined
   notify: restart netif
 
-- name: "interfaces: Configure interfaces in /etc/rc.conf"
+- name: "interfaces: Configure interfaces options in /etc/rc.conf"
   lineinfile:
     dest: "/etc/rc.conf"
     regexp: "^ifconfig_{{ item.interface }}="

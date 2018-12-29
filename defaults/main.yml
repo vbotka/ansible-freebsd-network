@@ -5,7 +5,6 @@ fn_debug: false
 fn_backup_conf: no
 
 fn_wlans: []
-fn_create_args: []
 fn_interfaces: []
 fn_aliases: []
 

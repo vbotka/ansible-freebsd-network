@@ -14,7 +14,7 @@
          fn_wlans
            {{ fn_wlans | to_yaml }}
          fn_interfaces
-           {{ fn_interfaces | to_yaml }}
+           {{ fn_interfaces | to_nice_yaml }}
          fn_aliases
            {{ fn_aliases | to_yaml }}
          fn_defaultrouter [ {{ fn_defaultrouter }} ]
