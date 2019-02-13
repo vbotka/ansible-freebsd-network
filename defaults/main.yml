@@ -9,7 +9,6 @@ fn_interfaces: []
 fn_aliases: []
 
 fn_defaultrouter: ""
-fn_nameserver: ""
 fn_gateway_enable: false
 # To enable routing, set the sysctl(8) variable net.inet.ip.forwarding
 # to 1. To stop routing, reset this variable to 0. (31.2.2)

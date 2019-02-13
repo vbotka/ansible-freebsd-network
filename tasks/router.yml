@@ -25,24 +25,6 @@
     - not fn_defaultrouter_dynamic
   notify: restart routing
 
-- name: "router: Set nameserver {{ fn_nameserver }} in /etc/rc.conf"
-  lineinfile:
-    dest: "/etc/rc.conf"
-    regexp: "^nameserver"
-    line: "nameserver=\"{{ fn_nameserver }}\""
-    backup: "{{ fn_backup_conf }}"
-  when: fn_nameserver|length > 0
-  notify: restart netif
-
-- name: "router: Remove nameserver from /etc/rc.conf"
-  lineinfile:
-    state: absent
-    dest: "/etc/rc.conf"
-    regexp: "^nameserver"
-    backup: "{{ fn_backup_conf }}"
-  when: fn_nameserver|length == 0
-  notify: restart netif
-
 - name: "router: Enable gateway in /etc/rc.conf"
   lineinfile:
     dest: "/etc/rc.conf"

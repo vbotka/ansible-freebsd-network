@@ -18,7 +18,6 @@
          fn_aliases
            {{ fn_aliases | to_yaml }}
          fn_defaultrouter [ {{ fn_defaultrouter }} ]
-         fn_nameserver [ {{ fn_nameserver }} ]
          fn_gateway_enable [ {{ fn_gateway_enable }} ]
          fn_static_routes_list [ {{ fn_static_routes_list }} ]
          fn_static_routes
