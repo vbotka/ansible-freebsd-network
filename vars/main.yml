@@ -1,23 +1,85 @@
 ---
 # vars for freebsd_network
 
+# my_fn_regdomain: US
+
 # fn_debug: true
 # fn_backup_conf: yes
 
-# fn_defaultrouter: "192.168.99.1"
 # fn_gateway_enable: true
+# fn_defaultrouter: "10.1.0.15"
 
+# Device
+# iwn - PCI Intel
+# run - USB Ralink RT5572(TP-Link WDN3200)
+# rum - USB Ralink RT2571W(D-Link DWL-G122 rev C1)
 # fn_wlans:
-#  - { device: "iwn0", interface: "wlan0", state: present }
+#   - device: "iwn0"
+#     state: present
+#     interface: "wlan0"
+#   - device: "run0"
+#     state: present
+#     interface: "wlan1"
+#   - device: "rum0"
+#     state: present
+#     interface: "wlan2"
 
 # fn_interfaces:
-#  - { interface: "wlan0", options: "country SK WPA SYNCDHCP" }
-#  - { interface: "em0", options: "DHCP" }
+#   - interface: "wlan0"
+#     state: present
+#     options: "WPA"
+#     create: "country {{ my_fn_regdomain }}"
+#   - interface: "wlan1"
+#     state: present
+#     options: "WPA"
+#     create: "country {{ my_fn_regdomain }}"
+#   - interface: "wlan2"
+#     state: present
+#     options: "WPA"
+#     create: "country {{ my_fn_regdomain }}"
+#   - interface: "em0"
+#     state: present
+#     options: "DHCP"
 
-# fn_cloned_interfaces: "lo1"
+# 11.6. Virtual Hosts
+# https://www.freebsd.org/doc/handbook/configtuning-virtual-hosts.html
+# ifconfig_fxp0_aliases="inet 10.1.1.1-5/24 inet 202.0.75.17-20/28"
+# fn_aliases:
+#   - interface: "wlan0"
+#     aliases:
+#       - {alias: "alias1", options: "inet 10.1.0.51  netmask 255.255.255.255", state: "present"}
+#       - {alias: "alias2", options: "inet 10.1.0.52  netmask 255.255.255.255"}
+#       - {alias: "alias3", options: "inet 10.1.0.53  netmask 255.255.255.255"}
+#       - {alias: "alias4", options: "inet 10.1.0.71  netmask 255.255.255.255"}
 
-# fn_bridges:
-#  - { bridge: "bridge0", options: "addm fxp0 addm fxp1 up", state: present }
+# 14.6. Managing Jails with ezjail
+# https://www.freebsd.org/doc/handbook/jails-ezjail.html
+# Jail and pf traffic out
+# https://www.reddit.com/r/freebsd/comments/a83sg6/jail_and_pf_traffic_out/
+# Options not needed because jail.conf does this automagically (and
+# dynamically) with the ipv4 entry
+# ipv4_addrs_lo1="10.2.2.1-9/29"
+
+# fn_cloned_interfaces:
+#   - interface: "lo1"
+#     options: []
+#
+# 31.6. Bridging
+# https://www.freebsd.org/doc/handbook/network-bridging.html
+#  - interface: "bridge0"
+#    options: "addm fxp0 addm fxp1 up"
+#
+# 31.7. Link Aggregation and Failover
+# https://www.freebsd.org/doc/handbook/network-aggregation.html 
+#  - interface: "lagg0"
+#    options: "laggproto lacp laggport fxp0 laggport fxp1 10.0.0.3/24"
+#
+# 31.10. Common Address Redundancy Protocol (CARP)
+# https://www.freebsd.org/doc/handbook/carp.html
+#  - interface: "carp0"
+#    options: "vhid 1 advskew 100 pass testpass 192.168.1.50/24"
+#  - interface: "carp1"
+#    options: "vhid 2 advskew 100 pass testpass 192.168.1.51/24"
 
 # EOF
 ...

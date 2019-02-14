@@ -5,33 +5,39 @@
 # 31.3. Wireless Networking
 # https://www.freebsd.org/doc/handbook/network-wireless.html
 
+# wlans
 - name: "interfaces: Configure wlans in /etc/rc.conf"
   lineinfile:
     state: "{{ item.state|default('present') }}"
     dest: "/etc/rc.conf"
-    regexp: "^wlans_{{ item.device }}"
+    regexp: "^\\s*wlans_{{ item.device }}\\s*="
     line: "wlans_{{ item.device }}=\"{{ item.interface }}\""
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_wlans }}"
   notify: restart netif
 
+# create_args
 - name: "interfaces: Configure interfaces create_args in /etc/rc.conf"
   lineinfile:
+    state: "{{ item.state|default('present') }}"
     dest: "/etc/rc.conf"
-    regexp: "^create_args_{{ item.interface }}"
+    regexp: "^\\s*create_args_{{ item.interface }}\\s*="
     line: "create_args_{{ item.interface }}=\"{{ item.create }}\""
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_interfaces }}"
   when: item.create is defined
   notify: restart netif
 
+# ifconfig_dev
 - name: "interfaces: Configure interfaces options in /etc/rc.conf"
   lineinfile:
+    state: "{{ item.state|default('present') }}"
     dest: "/etc/rc.conf"
-    regexp: "^ifconfig_{{ item.interface }}="
+    regexp: "^\\s*ifconfig_{{ item.interface }}\\s*="
     line: "ifconfig_{{ item.interface }}=\"{{ item.options }}\""
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_interfaces }}"
+  when: item.options is defined
   notify: restart netif
 
 # 11.6. Virtual Hosts
@@ -39,13 +45,15 @@
 # 31.10. Common Address Redundancy Protocol (CARP)
 # https://www.freebsd.org/doc/handbook/carp.html
 
+# ifconfig_dev_alias
 - name: "interfaces: Configure interface aliases in /etc/rc.conf"
   lineinfile:
+    state: "{{ item.1.state|default('present') }}"
     dest: "/etc/rc.conf"
-    regexp: "^ifconfig_{{ item.interface }}_{{ item.alias }}"
-    line: "ifconfig_{{ item.interface }}_{{ item.alias }}=\"{{ item.options }}\""
+    regexp: "^\\s*ifconfig_{{ item.0.interface }}_{{ item.1.alias }}\\s*="
+    line: "ifconfig_{{ item.0.interface }}_{{ item.1.alias }}=\"{{ item.1.options }}\""
     backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_aliases }}"
+  loop: "{{ fn_aliases|subelements('aliases') }}"
   notify: restart netif
 
 # EOF

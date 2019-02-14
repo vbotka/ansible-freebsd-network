@@ -4,23 +4,25 @@
 fn_debug: false
 fn_backup_conf: no
 
+# interfaces
 fn_wlans: []
 fn_interfaces: []
 fn_aliases: []
 
+# cloned_interfaces
+# loopback, bridge, lagg, carp
+fn_cloned_interfaces_list: ""
+fn_cloned_interfaces: []
+
+# route
 fn_defaultrouter: ""
 fn_gateway_enable: false
 # To enable routing, set the sysctl(8) variable net.inet.ip.forwarding
 # to 1. To stop routing, reset this variable to 0. (31.2.2)
-
 fn_static_routes_list: ""
 fn_static_routes: []
 
-fn_cloned_interfaces: ""
-fn_bridges: []
-fn_laggs: []
-
-# Dynamic configuration by a cloud provider
+# dynamic configuration by a cloud provider
 fn_defaultrouter_dynamic: false
 fn_ipv6_defaultrouter_dynamic: false
 fn_ipv6_activate_all_interfaces_dynamic: false

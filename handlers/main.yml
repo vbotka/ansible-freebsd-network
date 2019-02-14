@@ -11,7 +11,7 @@
     name: routing
     state: restarted
 
-- name: netif cloneup
+- name: cloneup netif
   command: "/etc/rc.d/netif cloneup"
 
 # EOF

@@ -8,11 +8,14 @@
 - import_tasks: interfaces.yml
   tags: fn_interfaces
 
-- import_tasks: bridge.yml
-  tags: fn_bridge
+- import_tasks: cloned-interfaces.yml
+  tags: fn_cloned_interfaces
 
-- import_tasks: lagg.yml
-  tags: fn_lagg
+#- import_tasks: vlans.yml
+#  tags: fn_vlans
+
+#- import_tasks: ipv6.yml
+#  tags: fn_ipv6
 
 - import_tasks: router.yml
   tags: fn_router

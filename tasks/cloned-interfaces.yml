@@ -1,0 +1,69 @@
+---
+
+# 31.6. Bridging
+# https://www.freebsd.org/doc/handbook/network-bridging.html
+# 31.7. Link Aggregation and Failover
+# https://www.freebsd.org/doc/handbook/network-aggregation.html
+# 31.10. Common Address Redundancy Protocol (CARP)
+# https://www.freebsd.org/doc/handbook/carp.html
+# 14.6. Managing Jails with ezjail
+# https://www.freebsd.org/doc/handbook/jails-ezjail.html
+
+# fn_cloned_interfaces_list
+- name: "cloned-interfaces: Create list of cloned_interfaces"
+  set_fact:
+    fn_cloned_interfaces_list: "{{ fn_cloned_interfaces_list + ' ' + item.interface }}"
+  loop: "{{ fn_cloned_interfaces }}"
+  when: item.state|default("present") == "present"
+
+- name: "cloned-interfaces: Debug fn_cloned_interfaces_list"
+  debug:
+    msg: "{{ fn_cloned_interfaces_list|trim }}"
+  when: fn_debug
+
+# rc.conf cloned_interfaces= present
+- name: "cloned-interfaces: Configure cloned_interfaces in /etc/rc.conf"
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: "^\\s*cloned_interfaces\\s*="
+    line: "cloned_interfaces=\"{{ fn_cloned_interfaces_list|trim }}\""
+    backup: "{{ fn_backup_conf }}"
+  when: fn_cloned_interfaces_list|length > 0
+  notify: cloneup netif
+
+# rc.conf cloned_interfaces= absent
+- name: "cloned-interfaces: Remove cloned_interfaces from /etc/rc.conf"
+  lineinfile:
+    state: absent
+    dest: "/etc/rc.conf"
+    regexp: "^\\s*cloned_interfaces"
+    backup: "{{ fn_backup_conf }}"
+  when: fn_cloned_interfaces_list|length == 0
+  notify: cloneup netif
+
+# create_args
+- name: "cloned-interfaces: Configure interfaces create_args in /etc/rc.conf"
+  lineinfile:
+    state: "{{ item.state|default('present') }}"
+    dest: "/etc/rc.conf"
+    regexp: "^\\s*create_args_{{ item.interface }}\\s*="
+    line: "create_args_{{ item.interface }}=\"{{ item.create }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_cloned_interfaces }}"
+  when: item.create is defined
+  notify: restart netif
+
+# ifconfig_dev
+- name: "cloned-interfaces: Configure interfaces options in /etc/rc.conf"
+  lineinfile:
+    state: "{{ item.state|default('present') }}"
+    dest: "/etc/rc.conf"
+    regexp: "^\\s*ifconfig_{{ item.interface }}\\s*="
+    line: "ifconfig_{{ item.interface }}=\"{{ item.options }}\""
+    backup: "{{ fn_backup_conf }}"
+  loop: "{{ fn_cloned_interfaces }}"
+  when: item.options is defined
+  notify: restart netif
+
+# EOF
+...
