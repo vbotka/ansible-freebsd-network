@@ -11,11 +11,11 @@
 - import_tasks: cloned-interfaces.yml
   tags: fn_cloned_interfaces
 
-#- import_tasks: vlans.yml
-#  tags: fn_vlans
+# - import_tasks: vlans.yml
+#   tags: fn_vlans
 
-#- import_tasks: ipv6.yml
-#  tags: fn_ipv6
+# - import_tasks: ipv6.yml
+#   tags: fn_ipv6
 
 - import_tasks: router.yml
   tags: fn_router

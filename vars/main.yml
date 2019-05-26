@@ -70,7 +70,7 @@
 #    options: "addm fxp0 addm fxp1 up"
 #
 # 31.7. Link Aggregation and Failover
-# https://www.freebsd.org/doc/handbook/network-aggregation.html 
+# https://www.freebsd.org/doc/handbook/network-aggregation.html
 #  - interface: "lagg0"
 #    options: "laggproto lacp laggport fxp0 laggport fxp1 10.0.0.3/24"
 #
