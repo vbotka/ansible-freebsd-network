@@ -2,7 +2,7 @@
 # tasks for freebsd_network
 
 - import_tasks: debug.yml
-  when: fn_debug
+  when: fn_debug|bool
   tags: [fn_debug, always]
 
 - import_tasks: interfaces.yml

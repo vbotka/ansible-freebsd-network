@@ -6,7 +6,7 @@
 - name: "router: Set defaultrouter {{ fn_defaultrouter }} in /etc/rc.conf"
   when:
     - fn_defaultrouter|length > 0
-    - not fn_defaultrouter_dynamic
+    - not fn_defaultrouter_dynamic|bool
   lineinfile:
     dest: "/etc/rc.conf"
     regexp: "^\\s*defaultrouter\\s*="
@@ -17,16 +17,16 @@
 - name: "router: Remove defaultrouter from /etc/rc.conf"
   when:
     - fn_defaultrouter|length == 0
-    - not fn_defaultrouter_dynamic
+    - not fn_defaultrouter_dynamic|bool
   lineinfile:
-    state: absent
+    state: "absent"
     dest: "/etc/rc.conf"
     regexp: "^\\s*defaultrouter\\s*="
     backup: "{{ fn_backup_conf }}"
   notify: restart routing
 
 - name: "router: Enable gateway in /etc/rc.conf"
-  when: fn_gateway_enable
+  when: fn_gateway_enable|bool
   lineinfile:
     dest: "/etc/rc.conf"
     regexp: "^\\s*gateway_enable\\s*="
@@ -37,9 +37,9 @@
   # To disable routing, reset variable net.inet.ip.forwarding to 0
 
 - name: "router: Remove gateway from /etc/rc.conf"
-  when: not fn_gateway_enable
+  when: not fn_gateway_enable|bool
   lineinfile:
-    state: absent
+    state: "absent"
     dest: "/etc/rc.conf"
     regexp: "^\\s*gateway_enable\\s*="
     backup: "{{ fn_backup_conf }}"
@@ -73,7 +73,7 @@
 - name: "router: Remove list of static routes from /etc/rc.conf"
   when: fn_static_routes_list|length == 0
   lineinfile:
-    state: absent
+    state: "absent"
     dest: "/etc/rc.conf"
     regexp: "^\\s*static_routes\\s*="
     backup: "{{ fn_backup_conf }}"

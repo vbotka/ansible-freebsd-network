@@ -2,7 +2,7 @@
 # defaults for freebsd_network
 
 fn_debug: false
-fn_backup_conf: no
+fn_backup_conf: false
 
 # interfaces
 fn_wlans: []

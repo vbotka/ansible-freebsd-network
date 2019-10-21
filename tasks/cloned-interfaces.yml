@@ -17,11 +17,11 @@
   loop: "{{ fn_cloned_interfaces }}"
 
 - name: "cloned-interfaces: Debug fn_cloned_interfaces_list"
-  when: fn_debug
+  when: fn_debug|bool
   debug:
     msg: "{{ fn_cloned_interfaces_list|trim }}"
 
-# rc.conf cloned_interfaces= present
+# rc.conf cloned_interfaces = present
 - name: "cloned-interfaces: Configure cloned_interfaces in /etc/rc.conf"
   when: fn_cloned_interfaces_list|length > 0
   lineinfile:
@@ -31,11 +31,11 @@
     backup: "{{ fn_backup_conf }}"
   notify: cloneup netif
 
-# rc.conf cloned_interfaces= absent
+# rc.conf cloned_interfaces = absent
 - name: "cloned-interfaces: Remove cloned_interfaces from /etc/rc.conf"
   when: fn_cloned_interfaces_list|length == 0
   lineinfile:
-    state: absent
+    state: "absent"
     dest: "/etc/rc.conf"
     regexp: "^\\s*cloned_interfaces"
     backup: "{{ fn_backup_conf }}"
