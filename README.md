@@ -1,73 +1,64 @@
-freebsd_network
-===============
+# freebsd_network
 
-[![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-postinstall.svg?branch=master)](https://travis-ci.org/vbotka/ansible-freebsd-network)
+[![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-network.svg?branch=master)](https://travis-ci.org/vbotka/ansible-freebsd-network)
 
 [Ansible role.](https://galaxy.ansible.com/vbotka/freebsd_network/) FreeBSD. Configure network.
 
+Please feel free to [share your feedback and report issues](https://github.com/vbotka/ansible-freebsd-network/issues). Contributions are welcome.
 
-Requirements
-------------
+
+## Requirements
 
 None.
 
 
-Variables
----------
+## Role Variables
 
-Review defaults and examples in vars.
+Review the defaults and examples in vars.
 
 
-Workflow
---------
+## Dependencies
 
-1) Change shell to /bin/sh.
+None.
 
-```
-ansible host -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod user -s /bin/sh'
-```
 
-2) Install role.
+## Workflow
+
+1) Change shell to /bin/sh
 
 ```
-ansible-galaxy install vbotka.freebsd_network
+shell> ansible host -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod user -s /bin/sh'
 ```
 
-3) Fit variables.
+2) Install role
 
 ```
-editor vbotka.freebsd_network/vars/main.yml
+shell> ansible-galaxy install vbotka.freebsd_network
 ```
 
-4) Create playbook.
+3) Fit variables
 
 ```
-cat freebsd-network.yml
+shell> editor vbotka.freebsd_network/vars/main.yml
+```
+
+4) Create playbook
+
+```
+shell> cat freebsd-network.yml
 - hosts: host
   roles:
     - vbotka.freebsd_network
 ```
 
-5) Configure the system.
+5) Configure the system
 
 ```
-ansible-playbook freebsd-network.yml
+shell> ansible-playbook freebsd-network.yml
 ```
 
-License
--------
 
-[![license](https://img.shields.io/badge/license-BSD-red.svg)](https://www.freebsd.org/doc/en/articles/bsdl-gpl/article.html)
-
-
-Author Information
-------------------
-
-[Vladimir Botka](https://botka.link)
-
-
-References
-----------
+## References
 
 - [FreeBSD handbook: 11.5. Setting Up Network Interface Cards](https://www.freebsd.org/doc/handbook/config-network-setup.html)
 - [FreeBSD handbook: 11.6. Virtual Hosts](http://www.freebsd.org/doc/handbook/configtuning-virtual-hosts.html)
@@ -78,3 +69,13 @@ References
 - [FreeBSD handbook: 31.9. IPv6](http://www.freebsd.org/doc/handbook/network-ipv6.html)
 - [FreeBSD handbook: 31.10. Common Address Redundancy Protocol (CARP)](http://www.freebsd.org/doc/handbook/carp.html)
 - [FreeBSD handbook: 31.11. VLANs](http://www.freebsd.org/doc/handbook/network-vlan.html)
+
+
+## License
+
+[![license](https://img.shields.io/badge/license-BSD-red.svg)](https://www.freebsd.org/doc/en/articles/bsdl-gpl/article.html)
+
+
+## Author Information
+
+[Vladimir Botka](https://botka.link)
