@@ -5,53 +5,49 @@
 # 31.3. Wireless Networking
 # https://www.freebsd.org/doc/handbook/network-wireless.html
 
-# wlans
 - name: "interfaces: Configure wlans in /etc/rc.conf"
-  lineinfile:
+  ansible.builtin.lineinfile:
+    dest: /etc/rc.conf
     state: "{{ item.state|default('present') }}"
-    dest: "/etc/rc.conf"
-    regexp: "^\\s*wlans_{{ item.device }}\\s*="
-    line: "wlans_{{ item.device }}=\"{{ item.interface }}\""
+    regexp: '^\s*wlans_{{ item.device }}\s*=(.*)$'
+    line: 'wlans_{{ item.device }}="{{ item.interface }}"'
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_wlans }}"
   notify: restart netif
 
-# create_args
 - name: "interfaces: Configure interfaces create_args in /etc/rc.conf"
-  lineinfile:
+  ansible.builtin.lineinfile:
+    dest: /etc/rc.conf
     state: "{{ item.state|default('present') }}"
-    dest: "/etc/rc.conf"
-    regexp: "^\\s*create_args_{{ item.interface }}\\s*="
-    line: "create_args_{{ item.interface }}=\"{{ item.create }}\""
+    regexp: '^\s*create_args_{{ item.interface }}\s*=(.*)$'
+    line: 'create_args_{{ item.interface }}="{{ item.create }}"'
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_interfaces }}"
+  notify: restart netif
   when: item.create is defined
-  notify: restart netif
 
-# ifconfig_dev
 - name: "interfaces: Configure interfaces options in /etc/rc.conf"
-  lineinfile:
+  ansible.builtin.lineinfile:
+    dest: /etc/rc.conf
     state: "{{ item.state|default('present') }}"
-    dest: "/etc/rc.conf"
-    regexp: "^\\s*ifconfig_{{ item.interface }}\\s*="
-    line: "ifconfig_{{ item.interface }}=\"{{ item.options }}\""
+    regexp: '^\s*ifconfig_{{ item.interface }}\s*=(.*)$'
+    line: 'ifconfig_{{ item.interface }}="{{ item.options }}"'
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_interfaces }}"
-  when: item.options is defined
   notify: restart netif
+  when: item.options is defined
 
 # 11.6. Virtual Hosts
 # https://www.freebsd.org/doc/handbook/configtuning-virtual-hosts.html
 # 31.10. Common Address Redundancy Protocol (CARP)
 # https://www.freebsd.org/doc/handbook/carp.html
 
-# ifconfig_dev_alias
 - name: "interfaces: Configure interface aliases in /etc/rc.conf"
-  lineinfile:
+  ansible.builtin.lineinfile:
+    dest: /etc/rc.conf
     state: "{{ item.1.state|default('present') }}"
-    dest: "/etc/rc.conf"
-    regexp: "^\\s*ifconfig_{{ item.0.interface }}_{{ item.1.alias }}\\s*="
-    line: "ifconfig_{{ item.0.interface }}_{{ item.1.alias }}=\"{{ item.1.options }}\""
+    regexp: '^\s*ifconfig_{{ item.0.interface }}_{{ item.1.alias }}\s*=(.*)$'
+    line: 'ifconfig_{{ item.0.interface }}_{{ item.1.alias }}="{{ item.1.options }}"'
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_aliases|subelements('aliases') }}"
   notify: restart netif
