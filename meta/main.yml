@@ -22,4 +22,6 @@ galaxy_info:
     - carp
     - ipv6
 dependencies: []
+collections:
+  - ansible.builtin
 ...

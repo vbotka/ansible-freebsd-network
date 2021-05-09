@@ -2,17 +2,18 @@
 # handlers for freebsd_network
 
 - name: restart netif
-  service:
+  ansible.builtin.service:
     name: netif
     state: restarted
 
 - name: restart routing
-  service:
+  ansible.builtin.service:
     name: routing
     state: restarted
 
 - name: cloneup netif
-  command: "/etc/rc.d/netif cloneup"
+  command:
+    cmd: /etc/rc.d/netif cloneup
 
 # EOF
 ...
