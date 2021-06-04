@@ -32,7 +32,7 @@
       fn_ipv6_defaultrouter_dynamic [{{ fn_ipv6_defaultrouter_dynamic }}]
       fn_ipv6_activate_all_interfaces_dynamic [{{ fn_ipv6_activate_all_interfaces_dynamic }}]
 
-  debug:
+  ansible.builtin.debug:
     msg: "{{ msg.split('\n') }}"
 
 # EOF
