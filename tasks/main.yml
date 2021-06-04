@@ -1,23 +1,27 @@
 ---
 # tasks for freebsd_network
 
-- import_tasks: debug.yml
+- name: Import debug.yml
+  ansible.builtin.import_tasks: debug.yml
   when: fn_debug|bool
   tags: [fn_debug, always]
 
-- import_tasks: interfaces.yml
+- name: Import interfaces.yml
+  ansible.builtin.import_tasks: interfaces.yml
   tags: fn_interfaces
 
-- import_tasks: cloned-interfaces.yml
+- name: Import cloned-interfaces.yml
+  ansible.builtin.import_tasks: cloned-interfaces.yml
   tags: fn_cloned_interfaces
 
-# - import_tasks: vlans.yml
+# - ansible.builtin.import_tasks: vlans.yml
 #   tags: fn_vlans
 
-# - import_tasks: ipv6.yml
+# - ansible.builtin.import_tasks: ipv6.yml
 #   tags: fn_ipv6
 
-- import_tasks: router.yml
+- name: Import router.yml
+  ansible.builtin.import_tasks: router.yml
   tags: fn_router
 
 # EOF

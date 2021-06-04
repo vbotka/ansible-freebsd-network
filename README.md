@@ -35,10 +35,10 @@ shell> ansible host -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh
 2) Install role
 
 ```
-shell> ansible-galaxy install vbotka.freebsd_network
+shell> ansible-galaxy role install vbotka.freebsd_network
 ```
 
-3) Fit variables
+3) Fit variables, e.g. in vars/main.yml
 
 ```
 shell> editor vbotka.freebsd_network/vars/main.yml
