@@ -1,6 +1,6 @@
 ---
 
-- name: "FreeBSD Network Debug"
+- name: FreeBSD Network Debug
   vars:
     msg: |-
       ansible_architecture [{{ ansible_architecture }}]
@@ -33,7 +33,7 @@
       fn_ipv6_activate_all_interfaces_dynamic [{{ fn_ipv6_activate_all_interfaces_dynamic }}]
 
   ansible.builtin.debug:
-    msg: "{{ msg.split('\n') }}"
+    msg: "{{ '{}'.format(msg) }}"
 
 # EOF
 ...
