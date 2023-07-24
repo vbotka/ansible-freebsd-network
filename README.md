@@ -80,4 +80,4 @@ shell> ansible-playbook freebsd-network.yml
 
 ## Author Information
 
-[Vladimir Botka](https://botka.link)
+[Vladimir Botka](https://botka.info)
