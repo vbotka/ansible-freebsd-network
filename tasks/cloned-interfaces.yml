@@ -13,7 +13,7 @@
   ansible.builtin.set_fact:
     fn_cloned_interfaces_list: "{{ fn_cloned_interfaces_list + ' ' + item.interface }}"
   loop: "{{ fn_cloned_interfaces }}"
-  when: item.state|default("present") == "present"
+  when: item.state|default('present') == 'present'
 
 - name: "cloned-interfaces: Debug fn_cloned_interfaces_list"
   ansible.builtin.debug:
