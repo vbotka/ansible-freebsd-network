@@ -9,22 +9,16 @@
 # 14.6. Managing Jails with ezjail
 # https://www.freebsd.org/doc/handbook/jails-ezjail.html
 
-- name: "cloned-interfaces: Create list of cloned_interfaces"
-  ansible.builtin.set_fact:
-    fn_cloned_interfaces_list: "{{ fn_cloned_interfaces_list + ' ' + item.interface }}"
-  loop: "{{ fn_cloned_interfaces }}"
-  when: item.state|default('present') == 'present'
-
 - name: "cloned-interfaces: Debug fn_cloned_interfaces_list"
   ansible.builtin.debug:
-    msg: "{{ fn_cloned_interfaces_list|trim }}"
+    msg: "{{ fn_cloned_interfaces_list }}"
   when: fn_debug|bool
 
 - name: "cloned-interfaces: Configure cloned_interfaces in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf
     regexp: '^\s*cloned_interfaces\s*=(.*)$'
-    line: 'cloned_interfaces="{{ fn_cloned_interfaces_list|trim }}"'
+    line: 'cloned_interfaces="{{ fn_cloned_interfaces_list }}"'
     backup: "{{ fn_backup_conf }}"
   notify: cloneup netif
   when: fn_cloned_interfaces_list|length > 0

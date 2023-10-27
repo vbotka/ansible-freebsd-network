@@ -50,6 +50,8 @@
     line: 'ifconfig_{{ item.0.interface }}_{{ item.1.alias }}="{{ item.1.options }}"'
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_aliases|subelements('aliases') }}"
+  loop_control:
+    label: "{{ item.0.interface }} {{ item.1.alias }} {{ item.1.options }}"
   notify: restart netif
 
 # EOF

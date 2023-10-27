@@ -53,12 +53,6 @@
   loop: "{{ fn_static_routes }}"
   notify: restart routing
 
-- name: "router: Create list of static routes"
-  ansible.builtin.set_fact:
-    fn_static_routes_list: "{{ fn_static_routes_list }} + ' ' + {{ item.name }}"
-  loop: "{{ fn_static_routes }}"
-  when: item.state == "present"
-
 - name: "router: Configure list of static routes in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf

@@ -15,7 +15,7 @@
       fn_wlans:
         {{ fn_wlans|to_yaml(indent=2)|indent(2) }}
       fn_interfaces:
-        {{ fn_interfaces|to_nice_yaml(indent=2)|indent(2) }}
+        {{ fn_interfaces|to_yaml(indent=2)|indent(2) }}
       fn_aliases:
         {{ fn_aliases|to_yaml(indent=2)|indent(2) }}
       fn_cloned_interfaces_list: {{ fn_cloned_interfaces_list }}
