@@ -1,6 +1,6 @@
 # freebsd_network
 
-[![quality](https://img.shields.io/ansible/quality/27910)](https://galaxy.ansible.com/vbotka/freebsd_network)[![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-network.svg?branch=master)](https://travis-ci.org/vbotka/ansible-freebsd-network)
+[![quality](https://img.shields.io/ansible/quality/27910)](https://galaxy.ansible.com/vbotka/freebsd_network)[![Build Status](https://app.travis-ci.com/vbotka/ansible-freebsd-network.svg?branch=master)](https://app.travis-ci.com/vbotka/ansible-freebsd-network)[![GitHub tag](https://img.shields.io/github/v/tag/vbotka/ansible-freebsd-network)](https://github.com/vbotka/ansible-freebsd-network/tags)
 
 [Ansible role.](https://galaxy.ansible.com/vbotka/freebsd_network/) FreeBSD. Configure network.
 
@@ -26,27 +26,24 @@ None.
 
 ## Workflow
 
-1) Change shell to /bin/sh
+1) Change shell on the remote host to /bin/sh if necessary
 
-```
+```bash
 shell> ansible host -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod user -s /bin/sh'
 ```
 
 2) Install role
 
-```
+```bash
 shell> ansible-galaxy role install vbotka.freebsd_network
 ```
 
-3) Fit variables, e.g. in vars/main.yml
+3) Fit variables
 
-```
-shell> editor vbotka.freebsd_network/vars/main.yml
-```
 
 4) Create playbook
 
-```
+```bash
 shell> cat freebsd-network.yml
 - hosts: host
   roles:
@@ -55,22 +52,27 @@ shell> cat freebsd-network.yml
 
 5) Configure the system
 
-```
+```bash
 shell> ansible-playbook freebsd-network.yml
+```
+
+## Ansible lint
+
+Use the configuration file *.ansible-lint.local* when running
+*ansible-lint*. Some rules might be disabled and some warnings might
+be ignored. See the notes in the configuration file.
+
+```bash
+shell> ansible-lint -c .ansible-lint.local
 ```
 
 
 ## References
 
-- [FreeBSD handbook: 11.5. Setting Up Network Interface Cards](https://www.freebsd.org/doc/handbook/config-network-setup.html)
-- [FreeBSD handbook: 11.6. Virtual Hosts](http://www.freebsd.org/doc/handbook/configtuning-virtual-hosts.html)
-- [FreeBSD handbook: 31.2. Gateways and Routes](https://www.freebsd.org/doc/handbook/network-routing.html)
-- [FreeBSD handbook: 31.3. Wireless Networking](http://www.freebsd.org/doc/handbook/network-wireless.html)
-- [FreeBSD handbook: 31.6. Bridging](https://www.freebsd.org/doc/handbook/network-bridging.html)
-- [FreeBSD handbook: 31.7. Link Aggregation and Failover](https://www.freebsd.org/doc/handbook/network-aggregation.html)
-- [FreeBSD handbook: 31.9. IPv6](http://www.freebsd.org/doc/handbook/network-ipv6.html)
-- [FreeBSD handbook: 31.10. Common Address Redundancy Protocol (CARP)](http://www.freebsd.org/doc/handbook/carp.html)
-- [FreeBSD handbook: 31.11. VLANs](http://www.freebsd.org/doc/handbook/network-vlan.html)
+- [FreeBSD handbook: Network](https://docs.freebsd.org/en/books/handbook/network/)
+- [FreeBSD handbook: Virtualization](https://docs.freebsd.org/en/books/handbook/virtualization/)
+- [FreeBSD handbook: Advanced Networking](https://docs.freebsd.org/en/books/handbook/advanced-networking/index.html)
+- [FreeBSD handbook: Gateways and Routes](https://docs.freebsd.org/en/books/handbook/advanced-networking/#network-routing)
 
 
 ## License

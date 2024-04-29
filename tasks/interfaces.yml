@@ -1,58 +1,45 @@
 ---
 
-# 11.5. Setting Up Network Interface Cards
-# https://www.freebsd.org/doc/handbook/config-network-setup.html
-# 31.3. Wireless Networking
-# https://www.freebsd.org/doc/handbook/network-wireless.html
-
-- name: "interfaces: Configure wlans in /etc/rc.conf"
+- name: "Interfaces: Configure wlans in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf
-    state: "{{ item.state|default('present') }}"
-    regexp: '^\s*wlans_{{ item.device }}\s*=(.*)$'
-    line: 'wlans_{{ item.device }}="{{ item.interface }}"'
+    state: "{{ item.state | d('present') }}"
+    regexp: ^\s*wlans_{{ item.device }}\s*=(.*)$
+    line: wlans_{{ item.device }}="{{ item.interface }}"
     backup: "{{ fn_backup_conf }}"
   loop: "{{ fn_wlans }}"
   notify: restart netif
 
-- name: "interfaces: Configure interfaces create_args in /etc/rc.conf"
+- name: "Interfaces: Configure interfaces create_args in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf
-    state: "{{ item.state|default('present') }}"
-    regexp: '^\s*create_args_{{ item.interface }}\s*=(.*)$'
-    line: 'create_args_{{ item.interface }}="{{ item.create }}"'
+    state: "{{ item.state | d('present') }}"
+    regexp: ^\s*create_args_{{ item.interface }}\s*=(.*)$
+    line: create_args_{{ item.interface }}="{{ item.create }}"
     backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_interfaces }}"
+  loop: "{{ fn_interfaces | selectattr('create', 'defined') }}"
   notify: restart netif
-  when: item.create is defined
 
-- name: "interfaces: Configure interfaces options in /etc/rc.conf"
+- name: "Interfaces: Configure interfaces options in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf
-    state: "{{ item.state|default('present') }}"
-    regexp: '^\s*ifconfig_{{ item.interface }}\s*=(.*)$'
-    line: 'ifconfig_{{ item.interface }}="{{ item.options }}"'
+    state: "{{ item.state | d('present') }}"
+    regexp: ^\s*ifconfig_{{ item.interface }}\s*=(.*)$
+    line: ifconfig_{{ item.interface }}="{{ item.options }}"
     backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_interfaces }}"
+  loop: "{{ fn_interfaces | selectattr('options', 'defined') }}"
   notify: restart netif
-  when: item.options is defined
 
-# 11.6. Virtual Hosts
-# https://www.freebsd.org/doc/handbook/configtuning-virtual-hosts.html
-# 31.10. Common Address Redundancy Protocol (CARP)
-# https://www.freebsd.org/doc/handbook/carp.html
-
-- name: "interfaces: Configure interface aliases in /etc/rc.conf"
+- name: "Interfaces: Configure interface aliases in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf
-    state: "{{ item.1.state|default('present') }}"
-    regexp: '^\s*ifconfig_{{ item.0.interface }}_{{ item.1.alias }}\s*=(.*)$'
-    line: 'ifconfig_{{ item.0.interface }}_{{ item.1.alias }}="{{ item.1.options }}"'
+    state: "{{ item.1.state | d('present') }}"
+    regexp: ^\s*ifconfig_{{ item.0.interface }}_{{ item.1.alias }}\s*=(.*)$
+    line: ifconfig_{{ item.0.interface }}_{{ item.1.alias }}="{{ item.1.options }}"
     backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_aliases|subelements('aliases') }}"
+  loop: "{{ fn_aliases | subelements('aliases') }}"
   loop_control:
     label: "{{ item.0.interface }} {{ item.1.alias }} {{ item.1.options }}"
   notify: restart netif
 
 # EOF
-...
