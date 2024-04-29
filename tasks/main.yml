@@ -3,7 +3,7 @@
 
 - name: Import debug.yml
   ansible.builtin.import_tasks: debug.yml
-  when: fn_debug|bool
+  when: fn_debug | bool
   tags: fn_debug
 
 - name: Import interfaces.yml

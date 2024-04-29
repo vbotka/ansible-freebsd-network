@@ -1,5 +1,5 @@
 ---
-- name: FreeBSD Network Debug
+- name: "FreeBSD Network Debug fn_debug={{ fn_debug }}"
   vars:
     msg: |-
       ansible_architecture: {{ ansible_architecture }}
