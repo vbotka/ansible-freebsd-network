@@ -1,5 +1,4 @@
 ---
-
 - name: FreeBSD Network Debug
   vars:
     msg: |-
@@ -13,19 +12,19 @@
 
       fn_backup_conf: {{ fn_backup_conf }}
       fn_wlans:
-        {{ fn_wlans|to_yaml(indent=2)|indent(2) }}
+        {{ fn_wlans | to_yaml(indent=2) | indent(2) }}
       fn_interfaces:
-        {{ fn_interfaces|to_yaml(indent=2)|indent(2) }}
+        {{ fn_interfaces | to_yaml(indent=2) | indent(2) }}
       fn_aliases:
-        {{ fn_aliases|to_yaml(indent=2)|indent(2) }}
+        {{ fn_aliases | to_yaml(indent=2) | indent(2) }}
       fn_cloned_interfaces_list: {{ fn_cloned_interfaces_list }}
       fn_cloned_interfaces:
-        {{ fn_cloned_interfaces|to_yaml(indent=2)|indent(2) }}
+        {{ fn_cloned_interfaces | to_yaml(indent=2) | indent(2) }}
       fn_defaultrouter: {{ fn_defaultrouter }}
       fn_gateway_enable: {{ fn_gateway_enable }}
       fn_static_routes_list: {{ fn_static_routes_list }}
       fn_static_routes:
-        {{ fn_static_routes|to_yaml(indent=2)|indent(2) }}
+        {{ fn_static_routes | to_yaml(indent=2) | indent(2) }}
       fn_defaultrouter_dynamic: {{ fn_defaultrouter_dynamic }}
       fn_ipv6_defaultrouter_dynamic: {{ fn_ipv6_defaultrouter_dynamic }}
       fn_ipv6_activate_all_interfaces_dynamic: {{ fn_ipv6_activate_all_interfaces_dynamic }}
@@ -34,4 +33,3 @@
     msg: "{{ '{}'.format(msg) }}"
 
 # EOF
-...
