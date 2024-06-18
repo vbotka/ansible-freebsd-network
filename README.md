@@ -1,6 +1,8 @@
 # freebsd_network
 
-[![quality](https://img.shields.io/ansible/quality/27910)](https://galaxy.ansible.com/vbotka/freebsd_network)[![Build Status](https://app.travis-ci.com/vbotka/ansible-freebsd-network.svg?branch=master)](https://app.travis-ci.com/vbotka/ansible-freebsd-network)[![GitHub tag](https://img.shields.io/github/v/tag/vbotka/ansible-freebsd-network)](https://github.com/vbotka/ansible-freebsd-network/tags)
+[![quality](https://img.shields.io/ansible/quality/27910)](https://galaxy.ansible.com/vbotka/freebsd_network)
+[![Build Status](https://app.travis-ci.com/vbotka/ansible-freebsd-network.svg?branch=master)](https://app.travis-ci.com/vbotka/ansible-freebsd-network)
+[![GitHub tag](https://img.shields.io/github/v/tag/vbotka/ansible-freebsd-network)](https://github.com/vbotka/ansible-freebsd-network/tags)
 
 [Ansible role.](https://galaxy.ansible.com/vbotka/freebsd_network/) FreeBSD. Configure network.
 

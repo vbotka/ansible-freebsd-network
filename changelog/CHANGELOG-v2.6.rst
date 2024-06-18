@@ -18,6 +18,7 @@ Major Changes
 
 Minor Changes
 -------------
+* Update README
 
 
 2.6.0
