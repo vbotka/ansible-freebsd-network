@@ -5,6 +5,22 @@ vbotka.freebsd_network 2.6 Release Notes
 .. contents:: Topics
 
 
+2.6.1
+=====
+
+Release Summary
+---------------
+Ansible 2.17 update
+
+Major Changes
+-------------
+* Supported FreeBSD: 13.3, 14.0, 14.1
+
+Minor Changes
+-------------
+* Update README
+
+
 2.6.0
 =====
 
