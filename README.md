@@ -40,7 +40,7 @@ shell> ansible host -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh
 shell> ansible-galaxy role install vbotka.freebsd_network
 ```
 
-3) Fit variables
+3) Fit variables to your needs.
 
 
 4) Create playbook

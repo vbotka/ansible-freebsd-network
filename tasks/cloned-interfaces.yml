@@ -8,46 +8,52 @@
 # Managing Jails
 # https://docs.freebsd.org/en/books/handbook/jails/#jail-managers-and-containers
 
-- name: "Cloned-interfaces: Debug fn_cloned_interfaces_list"
+- name: "Cloned-interfaces: Debug fn_cloned_interfaces_list fn_debug={{ fn_debug }}"
   ansible.builtin.debug:
     msg: "{{ fn_cloned_interfaces_list }}"
   when: fn_debug | bool
 
-- name: "Cloned-interfaces: Configure cloned_interfaces in /etc/rc.conf"
-  ansible.builtin.lineinfile:
-    dest: /etc/rc.conf
-    regexp: ^\s*cloned_interfaces\s*=(.*)$
-    line: cloned_interfaces="{{ fn_cloned_interfaces_list }}"
-    backup: "{{ fn_backup_conf }}"
+
+- name: Configure/Remove cloned_interfaces in /etc/rc.conf
   notify: cloneup netif
-  when: fn_cloned_interfaces_list | length > 0
+  block:
 
-- name: "Cloned-interfaces: Remove cloned_interfaces from /etc/rc.conf"
-  ansible.builtin.replace:
-    dest: /etc/rc.conf
-    regexp: ^\s*cloned_interfaces(.*)$
-    backup: "{{ fn_backup_conf }}"
-  notify: cloneup netif
-  when: fn_cloned_interfaces_list | length == 0
+    - name: "Cloned-interfaces: Configure cloned_interfaces in /etc/rc.conf"
+      ansible.builtin.lineinfile:
+        dest: /etc/rc.conf
+        regexp: ^\s*cloned_interfaces\s*=(.*)$
+        line: cloned_interfaces="{{ fn_cloned_interfaces_list }}"
+        backup: "{{ fn_backup_conf }}"
+      when: fn_cloned_interfaces_list | length > 0
 
-- name: "Cloned-interfaces: Configure interfaces create_args in /etc/rc.conf"
-  ansible.builtin.lineinfile:
-    dest: /etc/rc.conf
-    state: "{{ item.state | d('present') }}"
-    regexp: ^\s*create_args_{{ item.interface }}\s*=(.*)$
-    line: create_args_{{ item.interface }}="{{ item.create }}"
-    backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_cloned_interfaces | selectattr('create', 'defined') }}"
+    - name: "Cloned-interfaces: Remove cloned_interfaces from /etc/rc.conf"
+      ansible.builtin.replace:
+        dest: /etc/rc.conf
+        regexp: ^\s*cloned_interfaces(.*)$
+        backup: "{{ fn_backup_conf }}"
+      when: fn_cloned_interfaces_list | length == 0
+
+- name: Configure options and create_args in /etc/rc.conf
   notify: restart netif
+  block:
 
-- name: "Cloned-interfaces: Configure interfaces options in /etc/rc.conf"
-  ansible.builtin.lineinfile:
-    dest: /etc/rc.conf
-    state: "{{ item.state | d('present') }}"
-    regexp: ^\s*ifconfig_{{ item.interface }}\s*=(.*)$
-    line: ifconfig_{{ item.interface }}="{{ item.options }}"
-    backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_cloned_interfaces | selectattr('options', 'defined') }}"
-  notify: restart netif
+    - name: "Cloned-interfaces: Configure interfaces create_args in /etc/rc.conf"
+      ansible.builtin.lineinfile:
+        dest: /etc/rc.conf
+        state: "{{ item.state | d('present') }}"
+        regexp: ^\s*create_args_{{ item.interface }}\s*=(.*)$
+        line: create_args_{{ item.interface }}="{{ item.create }}"
+        backup: "{{ fn_backup_conf }}"
+      loop: "{{ fn_cloned_interfaces_present | selectattr('create', 'defined') }}"
 
+    - name: "Cloned-interfaces: Configure interfaces options in /etc/rc.conf"
+      ansible.builtin.lineinfile:
+        dest: /etc/rc.conf
+        state: "{{ item.state | d('present') }}"
+        regexp: ^\s*ifconfig_{{ item.interface }}\s*=(.*)$
+        line: ifconfig_{{ item.interface }}="{{ item.options }}"
+        backup: "{{ fn_backup_conf }}"
+      loop: "{{ fn_cloned_interfaces_present | selectattr('options', 'defined') }}"
+
+# TODO: Remove options and create_args from /etc/rc.conf
 # EOF

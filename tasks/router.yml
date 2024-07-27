@@ -3,6 +3,7 @@
 # https://docs.freebsd.org/en/books/handbook/advanced-networking/#network-routing
 
 - name: Set/Remove defaultrouter
+  notify: restart routing
   when: not fn_defaultrouter_dynamic | bool
   block:
 
@@ -12,7 +13,6 @@
         regexp: ^\s*defaultrouter\s*=(.*)$
         line: defaultrouter="{{ fn_defaultrouter }}"
         backup: "{{ fn_backup_conf }}"
-      notify: restart routing
       when: fn_defaultrouter | length > 0
 
     - name: "Router: Remove defaultrouter from /etc/rc.conf"
@@ -20,53 +20,51 @@
         dest: /etc/rc.conf
         regexp: ^\s*defaultrouter\s*=(.*)$
         backup: "{{ fn_backup_conf }}"
-      notify: restart routing
       when: fn_defaultrouter | length == 0
 
-- name: "Router: Enable gateway in /etc/rc.conf"
-  ansible.builtin.lineinfile:
-    dest: /etc/rc.conf
-    regexp: ^\s*gateway_enable\s*=(.*)$
-    line: gateway_enable="YES"
-    backup: "{{ fn_backup_conf }}"
+- name: Set/Remove gateway and statyc routes
   notify: restart routing
-  when: fn_gateway_enable | bool
-  # To enable routing, set the sysctl variable net.inet.ip.forwarding to 1
-  # To disable routing, reset variable net.inet.ip.forwarding to 0
+  block:
 
-- name: "Router: Remove gateway from /etc/rc.conf"
-  ansible.builtin.replace:
-    dest: /etc/rc.conf
-    regexp: ^\s*gateway_enable\s*=(.*)$
-    backup: "{{ fn_backup_conf }}"
-  notify: restart routing
-  when: not fn_gateway_enable | bool
+    - name: "Router: Enable gateway in /etc/rc.conf"
+      ansible.builtin.lineinfile:
+        dest: /etc/rc.conf
+        regexp: ^\s*gateway_enable\s*=(.*)$
+        line: gateway_enable="YES"
+        backup: "{{ fn_backup_conf }}"
+      when: fn_gateway_enable | bool
+      # To enable routing, set the sysctl variable net.inet.ip.forwarding to 1
+      # To disable routing, reset variable net.inet.ip.forwarding to 0
 
-- name: "Router: Configure static routes in /etc/rc.conf"
-  ansible.builtin.lineinfile:
-    dest: /etc/rc.conf
-    state: "{{ item.state }}"
-    regexp: ^\s*route_{{ item.name }}\s*=(.*)$
-    line: route_{{ item.name }}="{{ item.route }}"
-    backup: "{{ fn_backup_conf }}"
-  loop: "{{ fn_static_routes }}"
-  notify: restart routing
+    - name: "Router: Remove gateway from /etc/rc.conf"
+      ansible.builtin.replace:
+        dest: /etc/rc.conf
+        regexp: ^\s*gateway_enable\s*=(.*)$
+        backup: "{{ fn_backup_conf }}"
+      when: not fn_gateway_enable | bool
 
-- name: "Router: Configure list of static routes in /etc/rc.conf"
-  ansible.builtin.lineinfile:
-    dest: /etc/rc.conf
-    regexp: ^\s*static_routes\s*=(.*)$
-    line: static_routes="{{ fn_static_routes_list }}"
-    backup: "{{ fn_backup_conf }}"
-  notify: restart routing
-  when: fn_static_routes_list | length > 0
+    - name: "Router: Configure static routes in /etc/rc.conf"
+      ansible.builtin.lineinfile:
+        dest: /etc/rc.conf
+        state: "{{ item.state }}"
+        regexp: ^\s*route_{{ item.name }}\s*=(.*)$
+        line: route_{{ item.name }}="{{ item.route }}"
+        backup: "{{ fn_backup_conf }}"
+      loop: "{{ fn_static_routes }}"
 
-- name: "Router: Remove list of static routes from /etc/rc.conf"
-  ansible.builtin.replace:
-    dest: /etc/rc.conf
-    regexp: ^\s*static_routes\s*=(.*)$
-    backup: "{{ fn_backup_conf }}"
-  notify: restart routing
-  when: fn_static_routes_list | length == 0
+    - name: "Router: Configure list of static routes in /etc/rc.conf"
+      ansible.builtin.lineinfile:
+        dest: /etc/rc.conf
+        regexp: ^\s*static_routes\s*=(.*)$
+        line: static_routes="{{ fn_static_routes_list }}"
+        backup: "{{ fn_backup_conf }}"
+      when: fn_static_routes_list | length > 0
+
+    - name: "Router: Remove list of static routes from /etc/rc.conf"
+      ansible.builtin.replace:
+        dest: /etc/rc.conf
+        regexp: ^\s*static_routes\s*=(.*)$
+        backup: "{{ fn_backup_conf }}"
+      when: fn_static_routes_list | length == 0
 
 # EOF

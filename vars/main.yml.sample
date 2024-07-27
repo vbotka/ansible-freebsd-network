@@ -7,7 +7,7 @@
 # fn_backup_conf: yes
 
 # fn_gateway_enable: true
-# fn_defaultrouter: "10.1.0.15"
+# fn_defaultrouter: 10.1.0.15
 
 # Device
 # iwn - PCI Intel
@@ -61,25 +61,24 @@
 # ipv4_addrs_lo1="10.2.2.1-9/29"
 
 # fn_cloned_interfaces:
-#   - interface: "lo1"
-#     options: []
+#   - interface: lo1
 #
 # 31.6. Bridging
 # https://www.freebsd.org/doc/handbook/network-bridging.html
-#  - interface: "bridge0"
-#    options: "addm fxp0 addm fxp1 up"
+#  - interface: bridge0
+#    options: addm fxp0 addm fxp1 up
 #
 # 31.7. Link Aggregation and Failover
 # https://www.freebsd.org/doc/handbook/network-aggregation.html
-#  - interface: "lagg0"
-#    options: "laggproto lacp laggport fxp0 laggport fxp1 10.0.0.3/24"
+#  - interface: lagg0
+#    options: laggproto lacp laggport fxp0 laggport fxp1 10.0.0.3/24
 #
 # 31.10. Common Address Redundancy Protocol (CARP)
 # https://www.freebsd.org/doc/handbook/carp.html
-#  - interface: "carp0"
-#    options: "vhid 1 advskew 100 pass testpass 192.168.1.50/24"
-#  - interface: "carp1"
-#    options: "vhid 2 advskew 100 pass testpass 192.168.1.51/24"
+#  - interface: carp0
+#    options: vhid 1 advskew 100 pass testpass 192.168.1.50/24
+#  - interface: carp1
+#    options: vhid 2 advskew 100 pass testpass 192.168.1.51/24
 
 # EOF
 ...
