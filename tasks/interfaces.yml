@@ -1,5 +1,7 @@
 ---
 
+# TODO: Remove items from /etc/rc.conf if state not present.
+
 - name: "Interfaces: Configure wlans in /etc/rc.conf"
   ansible.builtin.lineinfile:
     dest: /etc/rc.conf
