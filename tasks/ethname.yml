@@ -43,24 +43,7 @@
         name: ethname_names
         value: "{{ fn_ethname_names | join(' ') }}"
 
-    - name: "Ethname: Remove ethname_enable from {{ _path }}"
-      when: fn_ethname_names | length == 0
-      community.general.sysrc:
-        name: ethname_names
-        state: absent
-
-- name: Configure ethname_names
-  notify: restart ethname
-  tags: fn_ethname_names
-  block:
-
-    - name: "Ethname: Set ethname_enable=YES in {{ _path }}"
-      when: fn_ethname_names | length > 0
-      community.general.sysrc:
-        name: ethname_names
-        value: "{{ fn_ethname_names | join(' ') }}"
-
-    - name: "Ethname: Remove ethname_enable from {{ _path }}"
+    - name: "Ethname: Remove ethname_names from {{ _path }}"
       when: fn_ethname_names | length == 0
       community.general.sysrc:
         name: ethname_names
