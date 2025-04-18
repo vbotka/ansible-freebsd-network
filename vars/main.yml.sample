@@ -80,5 +80,18 @@
 #  - interface: carp1
 #    options: vhid 2 advskew 100 pass testpass 192.168.1.51/24
 
+# ethname MAC-based network name pinning
+# https://forums.freebsd.org/threads/how-to-associate-an-interface-name-with-its-mac.89337/
+# https://forum.opnsense.org/index.php?topic=27023.0
+#
+# fn_ethname: true
+# fn_ethname_enable: true
+# fn_ethname_cmd_enable: true
+# fn_ethname_cmd: start
+# fn_ethname_install: false
+# fn_ethname_name_mac:
+#   ue0: 3c:33:32:c7:20:19
+#   ue1: 40:86:cb:d2:53:90
+
 # EOF
 ...

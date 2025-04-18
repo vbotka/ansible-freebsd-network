@@ -11,6 +11,8 @@
       ansible_distribution_release: {{ ansible_distribution_release }}
       ansible_python_version: {{ ansible_python_version }}
 
+      fn_rcconfd: {{ fn_rcconfd }}
+      fn_rcconfd_dir: {{ fn_rcconfd_dir }}
       fn_backup_conf: {{ fn_backup_conf }}
       fn_wlans:
         {{ fn_wlans | to_yaml(indent=2) | indent(2) }}
