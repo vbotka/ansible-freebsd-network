@@ -86,7 +86,7 @@
         value: "{{ item.value }}"
       loop: "{{ fn_ethname_name_mac | dict2items }}"
 
-- name: "Ethname: service ethname {{ fn_ethname_cmd }}"
+- name: "Ethname: service ethname <fn_ethname_cmd>"
   when: fn_ethname_cmd_enable | bool
   tags: fn_ethname_cmd
   vbotka.freebsd.service:
