@@ -10,7 +10,7 @@ vbotka.freebsd_network 2.7 Release Notes
 
 Release Summary
 ---------------
-
+Add ethname debug.
 
 
 2.7.1

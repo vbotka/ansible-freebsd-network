@@ -4,6 +4,26 @@
 
 # TODO: Sanity. 1) ethname installed. 2) MAC(s) are unique.
 
+- name: "Ethname: Debug fn_debug={{ fn_debug }}"
+  when: fn_debug | bool
+  tags: fn_ethname_debug
+  vars:
+    msg: |-
+      fn_ethname: {{ fn_ethname }}
+      fn_ethname_enable: {{ fn_ethname_enable }}
+      fn_ethname_cmd_enable: {{ fn_ethname_cmd_enable }}
+      fn_ethname_cmd: {{ fn_ethname_cmd }}
+      fn_ethname_install: {{ fn_ethname_install }}
+      fn_ethname_pkg:
+        {{ fn_ethname_pkg | to_nice_yaml(indent=2) | indent(2) }}
+      fn_ethname_names: {{ fn_ethname_names }}
+      fn_ethname_name_mac:
+        {{ fn_ethname_name_mac | to_nice_yaml(indent=2) | indent(2) }}
+      fn_ethname_name_mac_remove:
+        {{ fn_ethname_name_mac_remove | to_nice_yaml(indent=2) | indent(2) }}
+  ansible.builtin.debug:
+    msg: "{{ '{}'.format(msg) }}"
+
 - name: "Ethname: Install packages."
   when: fn_ethname_install | bool
   tags: fn_ethname_install
