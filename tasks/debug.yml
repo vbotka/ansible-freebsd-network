@@ -1,5 +1,5 @@
 ---
-- name: "FreeBSD Network Debug fn_debug={{ fn_debug }}"
+- name: "FreeBSD Network Debug"
   vars:
     msg: |-
       fn_role_version {{ fn_role_version }}
