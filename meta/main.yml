@@ -24,4 +24,6 @@ galaxy_info:
     - carp
     - ipv6
 dependencies: []
-collections: []
+collections:
+  - community.general
+  - vbotka.freebsd

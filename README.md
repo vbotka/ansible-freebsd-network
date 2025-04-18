@@ -23,7 +23,10 @@ Review the defaults and examples in vars.
 
 ## Dependencies
 
-None.
+### Collections
+
+* [community.general](https://github.com/ansible-collections/community.general/)
+* [vbotka.freebsd](https://github.com/vbotka/ansible-collection-freebsd/)
 
 
 ## Workflow

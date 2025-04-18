@@ -10,7 +10,7 @@ vbotka.freebsd_network 2.7 Release Notes
 
 Release Summary
 ---------------
-Major release. Requires collection vbotka.freebsd
+Major release. Requires collections community.general and vbotka.freebsd
 
 Major Changes
 -------------
