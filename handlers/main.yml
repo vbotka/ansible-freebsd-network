@@ -3,19 +3,27 @@
 
 - name: Restart netif
   listen: restart netif
-  ansible.builtin.service:
-    name: netif
-    state: restarted
+  vbotka.freebsd.service:
+    script: netif
+    command: restart
+
+- name: Cloneup netif
+  listen: cloneup netif
+  vbotka.freebsd.service:
+    script: netif
+    command: cloneup
 
 - name: Restart routing
   listen: restart routing
-  ansible.builtin.service:
-    name: routing
-    state: restarted
+  vbotka.freebsd.service:
+    script: routing
+    command: restart
 
-- name: Cloneup netif # noqa: no-changed-when
-  listen: cloneup netif
-  ansible.builtin.command:
-    cmd: /etc/rc.d/netif cloneup
+- name: Restart ethname
+  listen: restart ethname
+  when: fn_ethname_enable | bool
+  vbotka.freebsd.service:
+    script: ethname
+    command: restart
 
 # EOF
