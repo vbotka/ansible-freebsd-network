@@ -5,6 +5,14 @@ vbotka.freebsd_network 2.7 Release Notes
 .. contents:: Topics
 
 
+2.7.3
+=====
+
+Release Summary
+---------------
+Remove var fn_ethname_cmd from ethname task name.
+
+
 2.7.2
 =====
 
