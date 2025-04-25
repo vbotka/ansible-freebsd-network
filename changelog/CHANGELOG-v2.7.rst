@@ -10,7 +10,7 @@ vbotka.freebsd_network 2.7 Release Notes
 
 Release Summary
 ---------------
-Remove .ansible dir
+Remove .ansible dir. Add .gitignore
 
 
 2.7.3
