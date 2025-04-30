@@ -5,6 +5,25 @@ vbotka.freebsd_network 2.7 Release Notes
 .. contents:: Topics
 
 
+2.7.5
+=====
+
+Release Summary
+---------------
+
+Major Changes
+-------------
+
+Minor Changes
+-------------
+
+Bugfixes
+--------
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+
 2.7.4
 =====
 
