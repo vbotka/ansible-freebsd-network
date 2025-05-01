@@ -10,18 +10,7 @@ vbotka.freebsd_network 2.7 Release Notes
 
 Release Summary
 ---------------
-
-Major Changes
--------------
-
-Minor Changes
--------------
-
-Bugfixes
---------
-
-Breaking Changes / Porting Guide
---------------------------------
+Notify 'restart netif && restart routing' on changes.
 
 
 2.7.4
