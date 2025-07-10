@@ -10,6 +10,9 @@ vbotka.freebsd_network 2.7 Release Notes
 
 Release Summary
 ---------------
+Add variable fn_netif_sleep (default=5). The command 'service netif restart &&
+service routing restart` returns rc=1. Wait for 5 seconds between the
+commands. See the handler 'Restart netif and routing'.
 
 
 2.7.6

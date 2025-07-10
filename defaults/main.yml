@@ -63,4 +63,10 @@ fn_defaultrouter_dynamic: false
 fn_ipv6_defaultrouter_dynamic: false
 fn_ipv6_activate_all_interfaces_dynamic: false
 
+# handlers - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# The command 'service netif restart && service routing restart` returns rc=1. Wait for 5
+# seconds between the commands. See the handler 'Restart netif and routing'.
+fn_netif_sleep: 5
+
 # EOF
