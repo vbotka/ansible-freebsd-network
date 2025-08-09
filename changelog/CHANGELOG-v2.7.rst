@@ -10,7 +10,8 @@ vbotka.freebsd_network 2.7 Release Notes
 
 Release Summary
 ---------------
-
+Simlify the invocation of sysrc in interfaces.yml and
+cloned-interfaces.yml. Examples in vars/main.yml.sample
 
 2.7.7
 =====
