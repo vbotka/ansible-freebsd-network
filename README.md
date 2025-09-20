@@ -20,7 +20,7 @@ None.
 
 ## Role Variables
 
-Review the defaults and examples in vars.
+Look at the defaults and examples in vars.
 
 
 ## Dependencies
@@ -29,6 +29,8 @@ Review the defaults and examples in vars.
 
 * [community.general](https://github.com/ansible-collections/community.general/)
 * [vbotka.freebsd](https://github.com/vbotka/ansible-collection-freebsd/)
+
+Note: The tasks *tasks/ethname.yml* uses the module *vbotka.freebsd.service* from the collection *vbotka.freebsd*.
 
 
 ## Workflow
