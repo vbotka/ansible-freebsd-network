@@ -29,7 +29,7 @@
   tags: fn_ethname_install
   community.general.pkgng:
     name: "{{ fn_ethname_pkg }}"
-    cached: "{{ fn_pkg_cached | d(omit) | bool }}"
+    cached: "{{ fn_pkg_cached | d(false) | bool }}"
     use_globs: "{{ fn_pkg_use_globs | d(false) | bool }}"
   register: result
   until: result is succeeded

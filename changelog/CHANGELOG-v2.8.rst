@@ -17,6 +17,7 @@ Major Changes
 
 Minor Changes
 -------------
+* Fix The `bool` filter coerced invalid value <<Omit>> (_OmitType)
 
 
 2.8.0
