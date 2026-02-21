@@ -5,6 +5,21 @@ vbotka.freebsd_network 2.8 Release Notes
 .. contents:: Topics
 
 
+2.8.3
+=====
+
+Release Summary
+---------------
+Maintenance update.
+
+Major Changes
+-------------
+
+Minor Changes
+-------------
+* Variables ansible_* moved to the dictionary ansible_facts
+
+
 2.8.2
 =====
 
