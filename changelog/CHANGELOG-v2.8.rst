@@ -17,6 +17,7 @@ Major Changes
 
 Minor Changes
 -------------
+* Variables ansible_* moved to the dictionary ansible_facts
 
 
 2.8.2
